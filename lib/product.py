@@ -17,4 +17,30 @@ def create_product():
         session.commit()
 
 # # # create_product()
+# reading products
+def view_products():
+    with session_maker() as session:
+        products = session.query(Product)
+        for product in products:
+            print(product)
+
+# view_products()
+
+# updating products
+def update_product():
+    with session_maker() as session:
+        product = session.query(Product).filter(Product.product_id == 2).first()
+        product.product_description = "The apple is suit"
+        session.commit()
+
+# update_product()
+
+# deleting products
+def delete_product():
+    with session_maker() as session:
+        product = session.query(Product).filter(Product.product_id == 2).first()
+        session.delete(product)
+        session.commit()
+
+# delete_product()
 

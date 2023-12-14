@@ -1,8 +1,9 @@
 
 from datetime import datetime
 
-from admin import (add_product)
+from admin import (add_product, add_stock, delete_product, update_price, view_productsadmin)
 from category import view_categories
+from customers import (display_customer, get_all_customers, validate_customer, view_productscustomer)
 
 
 
@@ -23,7 +24,7 @@ def main():
             validate_customer()
 
             customer_choice = 0
-            while customer_choice != 8:
+            while customer_choice != 6:
 
                 print("*** Customer's View")
                 print("1) View your details")
@@ -32,8 +33,7 @@ def main():
                 print("4) View orders")
                 print("5) Update order item")
                 print("6) Delete order item")
-                print("7) View orders history")
-                print("8) Go back to main menu")
+                
 
                 customer_choice = int(input())
 
@@ -55,12 +55,7 @@ def main():
                     order_item_id = int(input("Enter order item ID: "))
                     new_quantity = int(input("Enter new quantity: "))
                     update_order_item(order_item_id, new_quantity)
-                elif customer_choice == 6:
-                    orderitem_id = input("Enter the order item ID: ")
-                    remove_orderitem(orderitem_id)
-                elif customer_choice == 7:
-                    customer_id = input("Enter your id: ")
-                    customer_orderhistory(customer_id)
+                
 
         # Enter the system as an administrator   
         if choice == 2:

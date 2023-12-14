@@ -32,6 +32,17 @@ class Category(Base):
     def __repr__(self):
         return(f'Category(category_id = {self.category_id}, category_name ={self.category_name})')
         
+# Customer table
+class Customer(Base):
+    __tablename__ = 'customers'
+    customer_id = Column(Integer, primary_key = True)
+    customer_fname = Column(String)
+    customer_lname = Column(String)
+    customer_mobile = Column(String)
+    
+    
+    def __repr__(self):
+        return(f'Customer(customer_id = {self.customer_id}, customer_fname = {self.customer_fname}, customer_lname = {self.customer_lname}, customer_mobile = {self.customer_mobile})')
 
 # creating the session
 engine = create_engine('sqlite:///models.db')
