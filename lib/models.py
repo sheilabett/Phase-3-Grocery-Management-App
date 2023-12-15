@@ -39,10 +39,26 @@ class Customer(Base):
     customer_fname = Column(String)
     customer_lname = Column(String)
     customer_mobile = Column(String)
+    customer_order = relationship('OrderItem', back_populates = 'order_customer')
     
     
     def __repr__(self):
         return(f'Customer(customer_id = {self.customer_id}, customer_fname = {self.customer_fname}, customer_lname = {self.customer_lname}, customer_mobile = {self.customer_mobile})')
+
+class OrderItem(Base):
+    __tablename__ = 'orderitems'
+
+    orderitem_id = Column(Integer, primary_key = True)
+    product_id = Column(Integer)
+    quantity = Column(Integer)
+    totalprice = Column(Integer)
+    customer_id = Column(Integer, ForeignKey('customers.customer_id'))
+    order_date = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    order_customer = relationship('Customer', back_populates = 'customer_order')
+
+    def __repr__(self):
+        return(f'OrderItem(orderitem_id = {self.orderitem_id}, product_id = {self.product_id}, quantity = {self.quantity}, totalprice = {self.totalprice}, customer_id = {self.customer_id})')
+
 
 # creating the session
 engine = create_engine('sqlite:///models.db')

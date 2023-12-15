@@ -3,7 +3,9 @@ from datetime import datetime
 
 from admin import (add_product, add_stock, delete_product, update_price, view_productsadmin)
 from category import view_categories
-from customers import (display_customer, get_all_customers, validate_customer, view_productscustomer)
+from customers import (display_customer, get_all_customers,make_order, validate_customer, view_productscustomer)
+from orderitem import (customer_orderhistory, find_orders, remove_orderitem,
+                       update_order_item)
 
 
 
@@ -24,15 +26,14 @@ def main():
             validate_customer()
 
             customer_choice = 0
-            while customer_choice != 6:
+            while customer_choice != 4:
 
                 print("*** Customer's View")
                 print("1) View your details")
                 print("2) View products")
                 print("3) Make an order")
                 print("4) View orders")
-                print("5) Update order item")
-                print("6) Delete order item")
+                
                 
 
                 customer_choice = int(input())

@@ -1,6 +1,6 @@
 from sqlalchemy import func
 
-from models import Category, Customer, Product, faker, session_maker
+from models import Category, Customer,  OrderItem, Product, faker, session_maker
 
 
 # View customer details
@@ -80,3 +80,34 @@ def view_productscustomer():
         for product_info in all_products:
             print(product_info)
 # view_productscustomer()
+# Making an order
+def make_order(product_id, quantity, customer_id):
+    with session_maker() as session:
+        customer = session.query(Customer).filter_by(customer_id=customer_id).first()
+        if customer is None:
+            print("Invalid customer ID.")
+            return
+        else:
+        
+            # Check if the product exists
+            product = session.query(Product).filter_by(product_id = product_id).first()
+            if product is None:
+                print("Product not found.")
+                return
+            elif product.product_amount < quantity:
+                # Check if the product is available in sufficient quantity
+                print("Insufficient product quantity.") 
+                return
+            else:
+                # Create a new order item
+                # orderitems = []
+                order_item = OrderItem(product_id=product_id, quantity=quantity, totalprice=product.product_price * quantity, customer_id = customer_id)
+                # orderitems.append(order_item)
+                product.product_amount -= quantity
+                session.add(order_item)
+                session.commit()
+                print("Order placed successfully.") 
+
+# make_order(1, 41, 2)
+
+# Viewing the available products for sale
